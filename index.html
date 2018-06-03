@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/webgl-utils.js"></script>
+    <script src="js/main.js"></script>
+    <style>
+        .canvas-container {
+            display: flex;
+            flex-direction: row;
+        }
+        #glCanvas {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas-container">
+        <div></div>
+        <!-- width="640" height="480" -->
+        <canvas id="Canvas" width="640" height="480"></canvas>
+        <div></div>
+    </div>
+    <div class="button-box">
+        <button id="open"></button>
+        <button id="save"></button>
+    </div>
+</body>
+<script id="2d-vertex-shader" type="x-shader/x-verrt">
+ 
+    // an attribute will receive data from a buffer
+    attribute vec4 a_position;
+   
+    // all shaders have a main function
+    void main() {
+   
+      // gl_Position is a special variable a vertex shader
+      // is responsible for setting
+      gl_Position = a_position;
+    }
+  </script>
+  
+  
+  <script id="2d-fragment-shader" type="x-shader/x-verrt">
+   
+   // fragment shaders don't have a default precision so we need
+   // to pick one. mediump is a good default
+   precision mediump float;
+  
+   void main() {
+     // gl_FragColor is a special variable a fragment shader
+     // is responsible for setting
+     gl_FragColor = vec4(1, 0, 0.5, 1); // return redish-purple
+   }
+  
+  </script>
+<script>    
+    main();
+</script>
+</html>
