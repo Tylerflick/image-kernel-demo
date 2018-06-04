@@ -10,6 +10,9 @@ function main() {
         }
         let canvas = document.getElementById("Canvas");
         let gl = setupContext(canvas);
+        if (!gl) {
+            return;
+        }
         let program = setupShaders(gl);
 
         gl.useProgram(program);
@@ -53,14 +56,7 @@ function main() {
 function setRectangle(gl, x, y, width, height) {
     var x2 = x + width;
     var y2 = y + height;
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(
-        [x, y,
-            x2, y,
-            x, y2,
-            x, y2,
-            x2, y,
-            x2, y2
-        ]), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([x, y, x2, y, x, y2, x, y2, x2, y, x2, y2]), gl.STATIC_DRAW);
 }
 
 function setupContext(canvas) {
@@ -70,13 +66,9 @@ function setupContext(canvas) {
     // Only continue if WebGL is available and working
     if (!gl) {
         alert("Unable to initialize WebGL. Your browser or machine may not support it.");
-        return;
+        return null;
     }
 
-    // Set clear color to black, fully opaque
-    // gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    // Clear the color buffer with specified clear color
-    // gl.clear(gl.COLOR_BUFFER_BIT);
     return gl;
 }
 
