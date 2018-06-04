@@ -7,22 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="js/webgl-utils.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/webgl-debug.js"></script>
+
     <style>
-        .canvas-container {
+        /* .canvas-container {
             display: flex;
             flex-direction: row;
         }
         #glCanvas {
             flex-grow: 1;
-        }
+        } */
     </style>
 </head>
 <body>
-    <div class="canvas-container">
-        <div></div>
-        <!-- width="640" height="480" -->
+    <!-- <div class="canvas-container"> -->
+        <!-- <div></div> -->
         <canvas id="Canvas" width="640" height="480"></canvas>
-        <div></div>
+        <!-- <div></div> -->
     </div>
     <div class="button-box">
         <button id="open"></button>
@@ -30,32 +31,40 @@
     </div>
 </body>
 <script id="2d-vertex-shader" type="x-shader/x-verrt">
- 
-    // an attribute will receive data from a buffer
-    attribute vec4 a_position;
-   
-    // all shaders have a main function
+    attribute vec2 a_position;
+    varying vec2 v_texCoord;
+    uniform vec2 u_resolution;
+    attribute vec2 a_texCoord;
+    
     void main() {
-   
-      // gl_Position is a special variable a vertex shader
-      // is responsible for setting
-      gl_Position = a_position;
+       // convert the rectangle from pixels to 0.0 to 1.0
+       vec2 zeroToOne = a_position / u_resolution;
+     
+       // convert from 0->1 to 0->2
+       vec2 zeroToTwo = zeroToOne * 2.0;
+     
+       // convert from 0->2 to -1->+1 (clipspace)
+       vec2 clipSpace = zeroToTwo - 1.0;
+     
+       gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+       v_texCoord = a_texCoord;
     }
   </script>
   
   
   <script id="2d-fragment-shader" type="x-shader/x-verrt">
-   
-   // fragment shaders don't have a default precision so we need
-   // to pick one. mediump is a good default
-   precision mediump float;
-  
-   void main() {
-     // gl_FragColor is a special variable a fragment shader
-     // is responsible for setting
-     gl_FragColor = vec4(1, 0, 0.5, 1); // return redish-purple
-   }
-  
+    precision mediump float;
+
+    // our texture
+    uniform sampler2D u_image;
+    
+    // the texCoords passed in from the vertex shader.
+    varying vec2 v_texCoord;
+    
+    void main() {
+       // Look up a color from the texture.
+       gl_FragColor = texture2D(u_image, v_texCoord);
+    }
   </script>
 <script>    
     main();
