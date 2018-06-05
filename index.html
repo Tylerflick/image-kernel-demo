@@ -9,6 +9,14 @@
     <script src="js/main.js"></script>
     <script src="js/webgl-debug.js"></script>
     <style>
+        canvas {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            /* width: 800px; */
+        }
         .container {
             display: flex;
             flex-direction: row;
@@ -16,8 +24,11 @@
         .container-buffer {
             flex-grow: 1;
         }
-        .container input {
-            flex:grow: 1;
+        .control-box {
+            width: 200px;
+        }
+        .kernel-input {
+            width: 30px;
         }
     </style>
 </head>
@@ -27,7 +38,6 @@
         <div class="canvas-container">
             <canvas id="Canvas" width="640" height="480"></canvas>
             <div class="control-box">
-                </select> 
                 <div class="container">
                     <input id="custom-kernel-input1" class="kernel-input" type="number">
                     <input id="custom-kernel-input2" class="kernel-input" type="number">
