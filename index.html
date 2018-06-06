@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Image Kernel Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="js/webgl-utils.js"></script>
     <script src="js/main.js"></script>
     <script src="js/webgl-debug.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap/dist/css/bootstrap.css">
     <style>
         canvas {
             padding-left: 0;
@@ -17,46 +19,56 @@
             display: block;
             /* width: 800px; */
         }
-        .container {
+
+        .flex-container {
             display: flex;
             flex-direction: row;
         }
-        .container-buffer {
+
+        .flex-filler {
             flex-grow: 1;
         }
+
         .control-box {
             width: 200px;
+            margin-left: 50px;
+            margin-right: 50px;
+            display: flex;
+            flex-direction: column;
         }
+
         .kernel-input {
-            width: 30px;
+            width: 40px;
+            margin: 6px;
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="container-buffer"></div>
-        <div class="canvas-container">
-            <canvas id="Canvas" width="640" height="480"></canvas>
-            <div class="control-box">
-                <div class="container">
-                    <input id="custom-kernel-input1" class="kernel-input" type="number">
-                    <input id="custom-kernel-input2" class="kernel-input" type="number">
-                    <input id="custom-kernel-input3" class="kernel-input" type="number">
-                </div>
-                <div class="container">
-                    <input id="custom-kernel-input4" class="kernel-input" type="number">
-                    <input id="custom-kernel-input5" class="kernel-input" type="number">
-                    <input id="custom-kernel-input6" class="kernel-input" type="number">
-                </div>
-                <div class="container">
-                    <input id="custom-kernel-input7" class="kernel-input" type="number">
-                    <input id="custom-kernel-input8" class="kernel-input" type="number">
-                    <input id="custom-kernel-input9" class="kernel-input" type="number">
-                </div>
-                <button text="Refresh" id="refresh-kernel" onclick="kernelChanged()">Refresh</button>
+    <div class="flex-container">
+        <div class="flex-filler"></div>
+        <img src="assets/1.jpg" alt="Source Image">
+        <div class="control-box">
+            <div class="flex-filler"></div>
+            <div class="container">
+                <input id="custom-kernel-input1" class="kernel-input" type="number">
+                <input id="custom-kernel-input2" class="kernel-input" type="number">
+                <input id="custom-kernel-input3" class="kernel-input" type="number">
             </div>
+            <div class="container">
+                <input id="custom-kernel-input4" class="kernel-input" type="number">
+                <input id="custom-kernel-input5" class="kernel-input" type="number">
+                <input id="custom-kernel-input6" class="kernel-input" type="number">
+            </div>
+            <div class="container">
+                <input id="custom-kernel-input7" class="kernel-input" type="number">
+                <input id="custom-kernel-input8" class="kernel-input" type="number">
+                <input id="custom-kernel-input9" class="kernel-input" type="number">
+            </div>
+            <button text="Refresh" id="refresh-kernel" onclick="kernelChanged()" type="button" class="btn btn-primary">Refresh</button>
         </div>
-        <div class="container-buffer"></div>
+        <canvas id="Canvas" width="640" height="480"></canvas>
+        <div class="flex-filler"></div>
     </div>
 
 </body>
@@ -81,9 +93,9 @@
        v_texCoord = a_texCoord;
     }
   </script>
-  
-  
-  <script id="2d-fragment-shader" type="x-shader/x-verrt">
+
+
+<script id="2d-fragment-shader" type="x-shader/x-verrt">
     precision mediump float;
 
     // texture
@@ -128,4 +140,5 @@
 <script>    
     main();
 </script>
+
 </html>
