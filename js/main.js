@@ -48,7 +48,7 @@ function reload(image) {
 
     var textureSizeLocation = gl.getUniformLocation(program, "u_textureSize");
     // set the size of the image
-    gl.uniform2f(textureSizeLocation, canvas.width, canvas.height);//image.width, image.height);
+    gl.uniform2f(textureSizeLocation, image.width, image.height);
     var kernelLocation = gl.getUniformLocation(program, "u_kernel[0]");
     gl.uniform1fv(kernelLocation, kernel);
 
